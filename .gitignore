@@ -1,5 +1,8 @@
-#netlify
+# Netlify
 .netlify/
+
+# Storybook
+storybook-static/
 
 # Logs
 logs
