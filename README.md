@@ -1,3 +1,6 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b6410114-05ec-44d6-a356-ab714023d7e2/deploy-status)](https://app.netlify.com/sites/adoring-colden-872453/deploys)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
