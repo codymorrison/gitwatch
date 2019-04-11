@@ -1,0 +1,18 @@
+## import '../fragments/repositorySummary.graphql';
+
+query SEARCH_REPOS_BY_TOPIC($stars: Int, $first: Int) {
+  search(type: REPOSITORY, query: "topic:awesome stars:>100", first: 100) {
+    repositoryCount
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+    nodes {
+      ... on Repository {
+        ...RepositorySummary
+      }
+    }
+  }
+}

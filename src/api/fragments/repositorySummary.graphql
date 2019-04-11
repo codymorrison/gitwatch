@@ -1,0 +1,23 @@
+fragment RepositorySummary on Repository {
+  id
+  isArchived
+  name
+  nameWithOwner
+  description
+  #repositoryTopics {}
+  primaryLanguage {
+    id
+    name
+    color
+  }
+  #labels {}
+  #languages {}
+  stargazers {
+    totalCount
+  }
+  homepageUrl
+  url
+  createdAt
+  pushedAt
+  updatedAt
+}
