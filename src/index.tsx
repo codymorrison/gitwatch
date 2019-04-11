@@ -1,8 +1,13 @@
+// Libraries
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './assets/styles/index.css';
-import App from './views/App';
 import * as serviceWorker from './serviceWorker';
+
+// Styles
+import 'antd/dist/antd.min.css';
+
+// Components
+import App from './views/App';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
