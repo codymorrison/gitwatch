@@ -1,5 +1,6 @@
 # Netlify
 .netlify/
+lambda/
 
 # Storybook
 storybook-static/
