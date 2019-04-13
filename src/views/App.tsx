@@ -26,7 +26,23 @@ export default function App(props: AppProps) {
       <Query query={SEARCH_REPOS_BY_TOPIC}>
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) return <p>{`Error! ${error.message}`}</p>;
+          //if (error) return <p>{`Error! ${error.message}`}</p>;
+
+          fetch("/.netlify/functions/auth", {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => {
+              console.log("response: ", response);
+              return response;
+            })
+            .then((data) => {
+              console.log("fetch data: ", data);
+            })
+            .catch((error) => {
+              console.log("lambda function error: ", error);
+            });
 
           console.info("SEARCH_REPOS_BY_TOPIC data: ", data);
 
