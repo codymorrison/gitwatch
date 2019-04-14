@@ -3,7 +3,7 @@
 ID = "b6410114-05ec-44d6-a356-ab714023d7e2"
 
 	[build]
-		publish = "dist"
+		publish = "build"
 		command = "npm run build"
 		functions = "lambda"
 
