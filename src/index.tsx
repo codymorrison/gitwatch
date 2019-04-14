@@ -7,7 +7,7 @@ import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 
 // Styles
-import "antd/dist/antd.min.css";
+import "./assets/styles/index.css";
 
 // Components
 import App from "./views/App";
