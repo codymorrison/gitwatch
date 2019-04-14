@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import client from "../api/apolloClient";
 import { loader } from "graphql.macro";
 
+import "../assets/styles/index.css";
+
 // GraphQL
 const SEARCH_REPOS_BY_TOPIC = loader(
   "../api/queries/searchReposByTopic.graphql"
@@ -23,31 +25,18 @@ export default function App(props: AppProps) {
 
   return (
     <ApolloProvider client={client}>
-      <Query query={SEARCH_REPOS_BY_TOPIC}>
+      <Query query={SEARCH_REPOS_BY_TOPIC} errorPolicy="ignore">
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           //if (error) return <p>{`Error! ${error.message}`}</p>;
 
-          fetch("/.netlify/functions/auth", {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-            .then((response) => {
-              console.log("response: ", response);
-              return response;
-            })
-            .then((data) => {
-              console.log("fetch data: ", data);
-            })
-            .catch((error) => {
-              console.log("lambda function error: ", error);
-            });
-
           console.info("SEARCH_REPOS_BY_TOPIC data: ", data);
 
           return (
-            <Layout className="App" style={{ minHeight: "100vh" }}>
+            <Layout
+              className="App"
+              style={{ minHeight: "100vh", minWidth: "100vw" }}
+            >
               <Sidebar collapsed={collapsed} />
 
               {isAuthenticated ? <RepoView /> : <NotAuthenticated />}
