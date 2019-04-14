@@ -18,6 +18,7 @@ exports.handler = function(event, context, callback) {
     statusCode: 301,
     headers: {
       Location: `${url}?${encodedParams}`,
+      "Cache-Control": "no-cache",
     },
     body: JSON.stringify({}),
   });
