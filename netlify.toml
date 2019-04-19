@@ -7,6 +7,11 @@ ID = "b6410114-05ec-44d6-a356-ab714023d7e2"
 		command = "npm run build"
 		functions = "lambda"
 
+	[[redirects]]
+		from = "/*"
+		to = "/index.html"
+		status = 200
+
   [[redirects]]
 		from = "/auth"
   	to = "/.netlify/functions/auth"
