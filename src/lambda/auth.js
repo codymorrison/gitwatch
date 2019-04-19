@@ -6,7 +6,7 @@ exports.handler = function(event, context, callback) {
   const url = "https://github.com/login/oauth/authorize";
   const params = {
     client_id: process.env.GITHUB_CLIENT_ID,
-    scope: ["read:user", "user:email", "public_repo"],
+    scope: ["read:user", "user:email", "public_repo"].join(),
     state: 1,
   };
 
