@@ -10,7 +10,7 @@ exports.handler = function(event, context, callback) {
     state: 1,
   };
 
-  const encodedParams = querystring.stringify(params, { arrayFormat: "comma" });
+  const encodedParams = querystring.stringify(params);
 
   return callback(null, {
     statusCode: 302,
