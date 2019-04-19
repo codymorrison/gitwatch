@@ -2,6 +2,13 @@
   "name": "gitwatch",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Cody Morrison"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codymorrison/gitwatch.git"
+  },
   "dependencies": {
     "@types/http-proxy-middleware": "0.19.2",
     "@types/jest": "24.0.11",
