@@ -1,5 +1,7 @@
-query GET_PROGRAMMING_LANGUAGES() {
-	node(id: "MDQ6QmxvYjE3MjUxOTk6NzdjZTIzNzQ5ZTcyZTQ4ZTM5ODI2Mzg0ZGNkYTVhNDZlNWQ4NWVjOQ==") {
+query GET_PROGRAMMING_LANGUAGES {
+  node(
+    id: "MDQ6QmxvYjE3MjUxOTk6NzdjZTIzNzQ5ZTcyZTQ4ZTM5ODI2Mzg0ZGNkYTVhNDZlNWQ4NWVjOQ=="
+  ) {
     ... on Blob {
       id
       oid
@@ -9,4 +11,3 @@ query GET_PROGRAMMING_LANGUAGES() {
     }
   }
 }
-
