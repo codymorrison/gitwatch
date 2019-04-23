@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState } from "react";
+import useLocalStorage from "react-use/lib/useLocalStorage";
 
 // Components
 import Layout from "antd/lib/layout";
@@ -11,13 +12,12 @@ export interface AppProps {}
 
 export default function App(props: AppProps) {
   const [collapsed, setCollapsed] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [githubToken, setGithubToken] = useLocalStorage("githubToken", "");
 
   return (
     <Layout className="App" style={{ minHeight: "100vh", minWidth: "100vw" }}>
       <Sidebar collapsed={collapsed} />
-
-      {isAuthenticated ? <RepoView /> : <NotAuthenticated />}
+      {githubToken ? <RepoView /> : <NotAuthenticated />}
     </Layout>
   );
 }

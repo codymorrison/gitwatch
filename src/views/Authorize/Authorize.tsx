@@ -1,7 +1,8 @@
 // Libraries
 import React from "react";
-
 import useLocalStorage from "react-use/lib/useLocalStorage";
+
+import { Redirect } from "react-router-dom";
 
 export interface AuthorizeProps {
   location: any;
@@ -14,17 +15,9 @@ export default function Authorize(props: AuthorizeProps) {
     ? params.get("access_token")
     : "";
 
-  console.log("authorize location: ", props.location);
-  console.log(
-    "authorize params: ",
-    params.get("access_token"),
-    params.get("token_type"),
-    params.get("scope")
-  );
-
-  if (accessToken) {
+  if (accessToken && accessToken !== githubToken) {
     setGithubToken(accessToken);
   }
 
-  return <p>Authorize Page</p>;
+  return <Redirect to="/" />;
 }
