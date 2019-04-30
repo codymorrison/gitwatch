@@ -1,7 +1,11 @@
 #import '../fragments/repositorySummary.graphql'
 
 query SEARCH_REPOS_BY_TOPIC {
-  search(type: REPOSITORY, query: "topic:awesome stars:>100", first: 100) {
+  search(
+    type: REPOSITORY
+    query: "topic:awesome stars:>=100 archived:false"
+    first: 100
+  ) {
     repositoryCount
     pageInfo {
       endCursor

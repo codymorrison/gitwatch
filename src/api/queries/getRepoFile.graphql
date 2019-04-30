@@ -1,0 +1,16 @@
+query GET_PROGRAMMING_LANGUAGES {
+  repository(owner: $owner, name: $name) {
+    object(expression: $expression) {
+      ... on Blob {
+        id
+        oid
+        text
+        isTruncated
+        isBinary
+        commmitUrl
+        commitResourcePath
+        byteSize
+      }
+    }
+  }
+}

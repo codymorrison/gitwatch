@@ -4,14 +4,34 @@ fragment RepositorySummary on Repository {
   name
   nameWithOwner
   description
-  #repositoryTopics {}
+  repositoryTopics(first: 10) {
+    totalCount
+    nodes {
+      id
+      resourcePath
+      topic {
+        id
+        name
+        stargazers {
+          totalCount
+        }
+      }
+      url
+    }
+  }
   primaryLanguage {
     id
     name
     color
   }
-  #labels {}
-  #languages {}
+  languages(first: 5) {
+    totalCount
+    nodes {
+      id
+      name
+      color
+    }
+  }
   stargazers {
     totalCount
   }
