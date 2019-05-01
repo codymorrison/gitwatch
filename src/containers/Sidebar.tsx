@@ -10,13 +10,14 @@ import { LightenDarkenColor } from "../helpers/cssHelper";
 import Layout from "antd/lib/layout";
 import Icon from "antd/lib/icon";
 import Tag from "antd/lib/tag";
+import { RouteComponentProps } from "react-router-dom";
 
 // GraphQL
 const SEARCH_REPOS_BY_TOPIC = loader(
   "../api/queries/searchReposByTopic.graphql"
 );
 
-export interface SidebarProps {
+export interface SidebarProps extends RouteComponentProps<any> {
   collapsed: boolean;
 }
 
@@ -33,8 +34,6 @@ export default function Sidebar(props: SidebarProps) {
 
   let languageStyles = { backgroundColor: "#fdfdfd" };
 
-  console.log("SEARCH_REPOS_BY_TOPIC data: ", data.search);
-
   return (
     <Layout.Sider
       trigger={null}
@@ -43,7 +42,7 @@ export default function Sidebar(props: SidebarProps) {
       width="250"
     >
       {data.search.nodes.map((repo: any) => {
-        console.log("repo: ", repo);
+        //console.log("repo: ", repo);
 
         if (repo.primaryLanguage && repo.primaryLanguage.color) {
           languageStyles.backgroundColor = LightenDarkenColor(
@@ -63,8 +62,8 @@ export default function Sidebar(props: SidebarProps) {
               cursor: "pointer",
             }}
             onClick={(evt) => {
-              console.log("url: ", repo.url);
-              console.log(props);
+              console.log("url: ", repo);
+              props.history.push(`/list/${repo.nameWithOwner}`);
             }}
           >
             <h4>{awesomeCleanup(repo.name)}</h4>
