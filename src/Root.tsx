@@ -20,7 +20,7 @@ export default function Root(props: RootProps) {
       <ApolloProvider client={client}>
         <Switch>
           <Route path="/authorize" component={Authorize} />
-          <Route path="/" exact component={App} />
+          <Route path="/" component={App} />
         </Switch>
       </ApolloProvider>
     </BrowserRouter>
