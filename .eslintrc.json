@@ -1,3 +1,13 @@
 {
-  "extends": "react-app"
+  "extends": "react-app",
+  "plugins": ["typescript"],
+  "rules": {
+    "typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "argsIgnorePattern": "^[sS]et[A-Z]+"
+      }
+    ]
+  }
 }
