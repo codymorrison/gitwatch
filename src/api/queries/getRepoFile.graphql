@@ -1,8 +1,4 @@
-query GET_PROGRAMMING_LANGUAGES(
-  $owner: String!
-  $name: String!
-  $expression: String!
-) {
+query GET_REPO_FILE($owner: String!, $name: String!, $expression: String!) {
   repository(owner: $owner, name: $name) {
     object(expression: $expression) {
       ... on Blob {
