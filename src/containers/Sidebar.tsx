@@ -41,79 +41,81 @@ export default function Sidebar(props: SidebarProps) {
       collapsed={props.collapsed}
       width="250"
     >
-      {data.search.nodes.map((repo: any) => {
-        //console.log("repo: ", repo);
+      <div style={{ overflowY: "scroll", height: "100vh" }}>
+        {data.search.nodes.map((repo: any) => {
+          //console.log("repo: ", repo);
 
-        if (repo.primaryLanguage && repo.primaryLanguage.color) {
-          languageStyles.backgroundColor = LightenDarkenColor(
-            repo.primaryLanguage.color,
-            0
+          if (repo.primaryLanguage && repo.primaryLanguage.color) {
+            languageStyles.backgroundColor = LightenDarkenColor(
+              repo.primaryLanguage.color,
+              0
+            );
+          }
+
+          return (
+            <div
+              key={repo.id}
+              style={{
+                backgroundColor: "#fdfdfd",
+                padding: 10,
+                borderBottom: "1px solid #ccc",
+                //...languageStyles,
+                cursor: "pointer",
+              }}
+              onClick={(evt) => {
+                console.log("url: ", repo);
+                props.history.push(`/list/${repo.nameWithOwner}`);
+              }}
+            >
+              <h4>{awesomeCleanup(repo.name)}</h4>
+              <div>
+                <small>
+                  <Icon
+                    type="star"
+                    theme="twoTone"
+                    twoToneColor="#ebc600"
+                    style={{
+                      marginRight: 5,
+                      color: "#FFD700",
+                    }}
+                  />
+                  {numberWithCommas(repo.stargazers.totalCount)}
+                </small>
+              </div>
+              <div>
+                {repo.repositoryTopics.nodes
+                  .sort((a, b) => {
+                    if (!a || !a.topic || !a.topic.starGazers) return 1;
+                    if (!b || !b.topic || !b.topic.starGazers) return 1;
+
+                    return (
+                      a.topic.starGazers.totalCount -
+                      b.topic.starGazers.totalCount
+                    );
+                  })
+                  .filter((resource, index) => {
+                    return (
+                      resource.topic.name !== "awesome" &&
+                      resource.topic.name !== "awesome-list" &&
+                      resource.topic.name !== "lists" &&
+                      resource.topic.name !== "list" &&
+                      resource.topic.name !== "awesomeness" &&
+                      index <= 2
+                    );
+                  })
+
+                  .map((resource) => {
+                    return (
+                      <Tag key={resource.id} style={{ marginTop: 5 }}>
+                        {resource.topic.name}
+                      </Tag>
+                    );
+                  })}
+              </div>
+            </div>
           );
-        }
-
-        return (
-          <div
-            key={repo.id}
-            style={{
-              backgroundColor: "#fdfdfd",
-              padding: 10,
-              borderBottom: "1px solid #ccc",
-              //...languageStyles,
-              cursor: "pointer",
-            }}
-            onClick={(evt) => {
-              console.log("url: ", repo);
-              props.history.push(`/list/${repo.nameWithOwner}`);
-            }}
-          >
-            <h4>{awesomeCleanup(repo.name)}</h4>
-            <div>
-              <small>
-                <Icon
-                  type="star"
-                  theme="twoTone"
-                  twoToneColor="#ebc600"
-                  style={{
-                    marginRight: 5,
-                    color: "#FFD700",
-                  }}
-                />
-                {numberWithCommas(repo.stargazers.totalCount)}
-              </small>
-            </div>
-            <div>
-              {repo.repositoryTopics.nodes
-                .sort((a, b) => {
-                  if (!a || !a.topic || !a.topic.starGazers) return 1;
-                  if (!b || !b.topic || !b.topic.starGazers) return 1;
-
-                  return (
-                    a.topic.starGazers.totalCount -
-                    b.topic.starGazers.totalCount
-                  );
-                })
-                .filter((resource, index) => {
-                  return (
-                    resource.topic.name !== "awesome" &&
-                    resource.topic.name !== "awesome-list" &&
-                    resource.topic.name !== "lists" &&
-                    resource.topic.name !== "list" &&
-                    resource.topic.name !== "awesomeness" &&
-                    index <= 2
-                  );
-                })
-
-                .map((resource) => {
-                  return (
-                    <Tag key={resource.id} style={{ marginTop: 5 }}>
-                      {resource.topic.name}
-                    </Tag>
-                  );
-                })}
-            </div>
-          </div>
-        );
-      })}
+        })}
+      </div>
     </Layout.Sider>
   );
 }
