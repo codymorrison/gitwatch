@@ -11,6 +11,7 @@ import Layout from "antd/lib/layout";
 import Icon from "antd/lib/icon";
 import Tag from "antd/lib/tag";
 import { RouteComponentProps } from "react-router-dom";
+import SidebarLoadingSkeleton from "../components/SidebarLoadingSkeleton";
 
 // GraphQL
 const SEARCH_REPOS_BY_TOPIC = loader(
@@ -29,7 +30,7 @@ export interface ReposByTopicData {
 
 export default function Sidebar(props: SidebarProps) {
   const { data, error, loading } = useQuery(SEARCH_REPOS_BY_TOPIC);
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <SidebarLoadingSkeleton />;
   if (error) return <p>{`Error! ${error.message}`}</p>;
 
   let languageStyles = { backgroundColor: "#fdfdfd" };
