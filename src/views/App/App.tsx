@@ -3,10 +3,11 @@ import React, { useState } from "react";
 //import useLocalStorage from "react-use/lib/useLocalStorage";
 
 // Components
-import { Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Layout from "antd/lib/layout";
 import Sidebar from "../../containers/Sidebar";
 import RepoView from "../../containers/RepoView";
+import EmptyRepoView from "../../containers/EmptyRepoView";
 import { RouteComponentProps } from "react-router-dom";
 
 export interface AppProps {}
@@ -35,7 +36,10 @@ export default function App(props: RouteComponentProps) {
           match={props.match}
         />
 
-        <Route path="/list/:owner/:repo" component={RepoView} />
+        <Switch>
+          <Route path="/list/:owner/:repo" component={RepoView} />
+          <Route path="*" component={EmptyRepoView} />
+        </Switch>
       </Layout>
     </Layout>
   );
