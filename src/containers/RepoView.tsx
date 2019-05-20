@@ -1,82 +1,39 @@
 // Libraries
-import React, { useEffect, useState } from "react";
-import { parseMarkdown } from "../helpers/markdownHelper";
+import React from "react";
+import useReadme from "../hooks/useReadme";
 
 // Components
 import { RouteComponentProps } from "react-router-dom";
 import Layout from "antd/lib/layout";
+import Skeleton from "antd/lib/skeleton";
+import Empty from "antd/lib/empty";
 
 export interface ListRepoRouteParams {
   owner: string;
   repo: string;
 }
 
-export interface ReadmeProps {
-  name: string;
-  path: string;
-  sha: string;
-  size: number;
-  url: string;
-  html_url: string;
-  git_url: string;
-  download_url: string;
-  type: string;
-  content: string;
-  encoding: string;
-  _links: Object;
-}
-
 export default function RepoView(
   props: RouteComponentProps<ListRepoRouteParams>
 ) {
-  const [readme, setReadme] = useState<ReadmeProps | undefined>(undefined);
-
   console.log("owner: ", props.match.params.owner);
   console.log("repo: ", props.match.params.repo);
 
-  useEffect(() => {
-    const token = localStorage.getItem("githubToken");
-    const authorizeToken = token && token.length > 0 ? JSON.parse(token) : "";
+  const [isLoading, readme] = useReadme(
+    props.match.params.owner,
+    props.match.params.repo
+  );
 
-    const readmeFetch = async () => {
-      const data: ReadmeProps = await fetch(
-        `https://api.github.com/repos/${props.match.params.owner}/${
-          props.match.params.repo
-        }/readme`,
-        {
-          headers: {
-            Authorization: "token " + authorizeToken,
-          },
-        }
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          return data;
-        })
-        .catch((error) => {
-          console.log("error: ", error);
-          return error;
-        });
+  console.log("repoview readme: ", readme);
 
-      setReadme(data);
-    };
-    readmeFetch();
-  }, [props.match.params.owner, props.match.params.repo]);
-
-  console.log("readme: ", readme);
-
-  if (readme && readme.content && readme.content.length > 0)
-    console.log(parseMarkdown(readme.content, { base64: true }));
+  if (isLoading) return <Skeleton active />;
+  if (!readme || !readme.vfile) return <Empty />;
 
   return (
-    <Layout>
-      <Layout.Content>
-        {readme && readme.content ? readme.content : ""}
+    <Layout style={{ height: "100vh" }}>
+      <Layout.Content style={{ padding: 10 }}>
+        {readme.vfile.contents}
       </Layout.Content>
-
-      <Layout.Footer>Footer</Layout.Footer>
     </Layout>
   );
 }
