@@ -15,13 +15,10 @@ export default function MarkdownList(props: MarkdownListProps) {
   });
 
   return (
-    <List
-      dataSource={children}
-      bordered={false}
-      renderItem={(listItem) => {
-        console.log("listItem: ", listItem);
-        return <List.Item>{listItem}</List.Item>;
-      }}
-    />
+    <ul>
+      {children.map((child) => {
+        return <li>{child}</li>;
+      })}
+    </ul>
   );
 }
